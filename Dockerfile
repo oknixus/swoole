@@ -2,7 +2,7 @@ FROM php:cli-alpine3.11
 
 MAINTAINER Nixus <nixus@nixus.cn>
 
-LABEL description="添加swoole扩展"
+LABEL description=" 添加swoole扩展 "
 
 RUN apk update --no-cache \
 	&& apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
