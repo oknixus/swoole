@@ -25,5 +25,5 @@ RUN apk update --no-cache \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql bcmath gd zip pcntl xlswriter \
     && apk del autoconf build-base pcre make gcc g++ musl-dev git pcre2 expat .phpize-deps \
-	&& rm -rf /usr/src/php \
+	&& rm -rf /usr/src/* \
 	&& rm -rf /tmp/pear
