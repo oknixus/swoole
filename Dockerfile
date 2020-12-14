@@ -4,6 +4,8 @@ MAINTAINER Nixus <nixus@nixus.cn>
 
 LABEL description=" 添加swoole扩展 "
 
+ENV XLSWRITER_VERSION 1.3.4.1
+
 RUN apk update --no-cache \
 	&& apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
     && apk add --no-cache libzip-dev libpng-dev libmcrypt-dev libjpeg-turbo-dev libstdc++ freetype-dev git \
@@ -21,9 +23,18 @@ RUN apk update --no-cache \
 		&& make && make install \
 		&& cd .. && rm -rf swoole \
 	) \
-    && docker-php-ext-enable redis swoole \
+	## 安装PHP扩展：xlswriter 
+	&& ( \
+		curl -fsSL "https://pecl.php.net/get/xlswriter-${XLSWRITER_VERSION}.tgz" -o xlswriter.tgz \
+		&& mkdir -p /tmp/xlswriter \
+		&& tar -xf xlswriter.tgz -C /tmp/xlswriter --strip-components=1 \
+		&& rm xlswriter.tgz \
+		&& cd /tmp/xlswriter \
+		&& phpize && ./configure --enable-reader && make && make install \
+   ) \
+	&& docker-php-ext-enable redis swoole xlswriter \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql bcmath gd zip pcntl xlswriter \
+    && docker-php-ext-install pdo pdo_mysql bcmath gd zip pcntl \
     && apk del autoconf build-base pcre make gcc g++ musl-dev git pcre2 expat .phpize-deps \
 	&& rm -rf /usr/src/* \
-	&& rm -rf /tmp/pear
+	&& rm -rf /tmp/*
