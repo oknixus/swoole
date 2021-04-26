@@ -3,6 +3,7 @@ FROM php:cli-alpine3.11
 MAINTAINER Nixus <nixus@nixus.cn>
 
 LABEL description=" 添加swoole扩展 "
+LABEL exts=" 添加xlswriter扩展 "
 
 ENV XLSWRITER_VERSION 1.3.4.1
 
@@ -31,7 +32,7 @@ RUN apk update --no-cache \
 		&& rm xlswriter.tgz \
 		&& cd /tmp/xlswriter \
 		&& phpize && ./configure --enable-reader && make && make install \
-   ) \
+    ) \
 	&& docker-php-ext-enable redis swoole xlswriter \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql bcmath gd zip pcntl \
