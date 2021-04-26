@@ -2,7 +2,7 @@ FROM php:cli-alpine3.13
 
 MAINTAINER Nixus <nixus@nixus.cn>
 
-LABEL description=" 添加swoole扩展 "
+LABEL description=" 补推tags "
 LABEL exts=" 添加xlswriter扩展 "
 
 ENV XLSWRITER_VERSION 1.3.7
