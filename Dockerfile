@@ -1,4 +1,4 @@
-FROM php:7.4.16-cli-alpine3.13
+FROM php:7.4.23-cli-alpine3.13
 
 MAINTAINER Nixus <nixus@nixus.cn>
 
